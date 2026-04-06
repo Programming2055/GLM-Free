@@ -1,0 +1,14 @@
+{
+  "name": "Hugging Face Gemma Client",
+  "description": "Integration with Hugging Face Gemma 4 31B model via OpenAI-compatible API",
+  "tools": {
+    "python": {
+      "command": "python",
+      "args": ["-c"]
+    }
+  },
+  "environment": {
+    "HF_API_KEY": "${HF_API_KEY}",
+    "PYTHONPATH": "${workspaceFolder}"
+  }
+}
