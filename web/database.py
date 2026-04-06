@@ -76,6 +76,12 @@ class Conversation:
         )
         conn.commit()
         conn.close()
+
+        # Cleanup old conversations - keep only 10 most recent
+        deleted = Conversation.cleanup_old_conversations(10)
+        if deleted > 0:
+            print(f"Auto-cleanup: Removed {deleted} old conversation(s)")
+
         return conv_id
 
     @staticmethod
@@ -147,6 +153,34 @@ class Conversation:
         )
         conn.commit()
         conn.close()
+
+    @staticmethod
+    def cleanup_old_conversations(limit: int = 10):
+        """Keep only the most recent conversations, delete older ones."""
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Get IDs of conversations to delete (older than the most recent 'limit')
+        cursor.execute(
+            """SELECT id FROM conversations
+               ORDER BY updated_at DESC
+               LIMIT -1 OFFSET ?""",
+            (limit,)
+        )
+        old_conversations = cursor.fetchall()
+
+        # Delete old conversations (cascade will delete their messages)
+        for row in old_conversations:
+            cursor.execute(
+                "DELETE FROM conversations WHERE id = ?",
+                (row['id'],)
+            )
+
+        deleted_count = len(old_conversations)
+        conn.commit()
+        conn.close()
+
+        return deleted_count
 
 
 class Message:

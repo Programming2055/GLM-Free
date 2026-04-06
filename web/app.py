@@ -4,6 +4,7 @@ import sys
 import os
 import json
 import time
+import base64
 from flask import Flask, request, jsonify, Response, stream_with_context, render_template
 from flask_cors import CORS
 from dotenv import load_dotenv

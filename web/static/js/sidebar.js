@@ -7,7 +7,6 @@ class SidebarManager {
         this.overlay = document.getElementById('sidebar-overlay');
         this.conversationList = document.getElementById('conversation-list');
         this.newChatBtn = document.getElementById('new-chat-btn');
-        this.clearHistoryBtn = document.getElementById('clear-history-btn');
         this.toggleSidebarBtn = document.getElementById('toggle-sidebar');
 
         this.conversations = [];
@@ -30,7 +29,6 @@ class SidebarManager {
             console.log('New chat button clicked');
             this.createNewChat();
         });
-        this.clearHistoryBtn.addEventListener('click', () => this.clearHistory());
         this.toggleSidebarBtn.addEventListener('click', () => this.toggleSidebar());
         this.overlay.addEventListener('click', () => this.closeSidebar());
 
