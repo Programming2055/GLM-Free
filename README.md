@@ -261,6 +261,84 @@ gemma/
 └── README.md
 ```
 
+## MCP Server (External Access)
+
+You can use this chatbot as an MCP (Model Context Protocol) server from external applications like Claude Code.
+
+### Setup
+
+1. **Install MCP SDK:**
+
+```bash
+pip install mcp
+```
+
+2. **Configure Claude Code:**
+
+Add to your Claude Code MCP settings (Settings > MCP):
+
+```json
+{
+  "mcpServers": {
+    "glm-chatbot": {
+      "command": "python",
+      "args": ["mcp_server.py"],
+      "cwd": "D:\\httpwww.r-5.org\\Python projects\\gemma"
+    }
+  }
+}
+```
+
+### Available MCP Tools
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| `send_message` | Send text message to chatbot | `message`, `provider`, `model`, `temperature`, `max_tokens` |
+| `analyze_image` | Analyze image with vision model | `image_path`, `prompt`, `provider`, `model` |
+| `list_models` | List all available models | None |
+| `add_custom_model` | Add custom Z.AI model | `model_id`, `name`, `model_type`, `description` |
+
+### MCP Usage Examples
+
+**Send a message:**
+```python
+# Use the MCP tool
+send_message(
+    message="What is machine learning?",
+    provider="zai",
+    model="glm-4.7-flash"
+)
+```
+
+**Analyze an image:**
+```python
+analyze_image(
+    image_path="/path/to/image.jpg",
+    prompt="What's in this image?",
+    model="glm-4.6v-flash"
+)
+```
+
+**Add a custom model:**
+```python
+add_custom_model(
+    model_id="glm-5",
+    name="GLM-5 Premium",
+    model_type="text",
+    description="Premium GLM-5 model"
+)
+```
+
+### Running MCP Server Standalone
+
+```bash
+# Run the MCP server directly
+python mcp_server.py
+
+# Or use stdio transport for MCP clients
+python mcp_server.py --transport stdio
+```
+
 ## License
 
 MIT License

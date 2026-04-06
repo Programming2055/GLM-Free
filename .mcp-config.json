@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "glm-chatbot": {
+      "name": "GLM Free Chatbot",
+      "description": "Multi-model chatbot with Hugging Face Gemma and Z.AI GLM support",
+      "command": "python",
+      "args": ["mcp_server.py"],
+      "cwd": "D:\\httpwww.r-5.org\\Python projects\\gemma",
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      },
+      "tools": [
+        {
+          "name": "send_message",
+          "description": "Send a text message to the chatbot"
+        },
+        {
+          "name": "analyze_image",
+          "description": "Analyze an image using vision models"
+        },
+        {
+          "name": "list_models",
+          "description": "List all available models"
+        },
+        {
+          "name": "add_custom_model",
+          "description": "Add a custom Z.AI model"
+        }
+      ]
+    }
+  }
+}
